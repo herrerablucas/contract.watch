@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "amqplib": "^0.10.0",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^9.3.0",
+    "pg": "^8.7.3",
+    "solhint": "^3.3.7"
+  }
+}
