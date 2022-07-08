@@ -4,8 +4,10 @@
 > ###### **Important:** An Etherscan account is required to generate the <u>**API Key Token**</u>, Etherscan [offers](https://etherscan.io/myapikey) a free plan with 5 calls per second; when initializing a consumer a timeout can be configured with the `--timeout` flag in order to prevent being rate-limited.
 
 ### **Current modules:**
-> - **solhint:** fetches the source code of each newly tracked contract and runs it through solhint (a solidity linter), with security rules applied to it.
+Modules are self-contained functions that can be executed on the contracts published to the work queue a consumer is subscribed to. The consumer's module can specified with the `--module` flag.
+> - **solhint:** fetches the source code of each newly tracked contract and runs it through [solhint](https://github.com/protofire/solhint) (a solidity linter), with security rules applied to it.
 
+###### Please refer to solhint's [security rules](https://github.com/protofire/solhint/blob/master/docs/rules.md#security-rules) and configure the `/consumer/.solhint.json` config file based on your requirements.
 
 ## Instructions
 1. Run rabbitmq:
