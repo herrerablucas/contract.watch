@@ -19,7 +19,8 @@ const scansRouter     = require('./src/routes/scans.route');
 
 const {
 	getLastTrackedContract,
-	fetchNewContracts
+	fetchNewContracts,
+	getLastestVerifiedContracts
 } = require('./src/controllers/contracts.controller');
 
 app.use('/contracts', contractsRouter);

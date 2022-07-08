@@ -15,7 +15,6 @@ const getVerifiedContracts = async (page, page_size) => {
 					ps: page_size
 				}
 		});
-
 		return data;
 	} catch(err) {
 		return [];
@@ -46,11 +45,12 @@ const parseVerifiedContracts = async (data) => {
 			let contract = []; 
 			$(this).children()
 				.each((i, el) => contract.push($(el).text().trim()));
-			contracts.push(contract);
+
+			let [ hash, name, compiler, version, balance, txns, setting, verified, audited, license ] = contract;
+			contracts.push({ hash, name, compiler, version, balance, txns, setting, verified, audited, license });
 		});
 
 		return contracts;
-
 	} catch (err) {
 		console.log(err);
 		return [];
@@ -78,9 +78,9 @@ const fetchNewContracts = async(options) => {
 
 	contracts = filterTrackedContracts(contracts);
 
-	let results = await Promise.allSettled(contracts.map((contract) =>
+	let results = await Promise.allSettled(contracts.map(({ hash, name, compiler, version, balance, txns, license }) =>
 		db.query('INSERT INTO contracts (hash, name, compiler, version, balance, txns, license) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING hash',
-		[ contract[0], contract[1], contract[2], contract[3], parseFloat(contract[4]), parseInt(contract[5]), contract[9] ])
+		[ hash, name, compiler, version, parseFloat(balance), parseInt(txns), license ])
 	));
 
 	let firstFulfilled;
@@ -123,6 +123,6 @@ const getContracts = async (req, res, next) => {
 module.exports = {
 	getLastTrackedContract,
 	fetchNewContracts,
-	getContracts
+	getContracts,	
 }
 
