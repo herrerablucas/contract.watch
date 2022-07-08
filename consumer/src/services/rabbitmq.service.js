@@ -10,7 +10,7 @@ const createQueue = async (channel, queue) => {
     	channel.assertQueue(queue, { durable: true });
 		return { ok: true, channel };
     } catch(err) {
-		return { ok: false, err };
+		return console.log('Couldn\'t create Rabbitmq queue');
 	}
 }
 
@@ -34,7 +34,7 @@ const consume = async (queue, callback) => {
 		);
 		return { ok: true };
 	} catch (err) {
-		console.log({ ok: false, err });
+		return console.log('Couldn\'t connect to Rabbitmq');
 	}
 }
  
